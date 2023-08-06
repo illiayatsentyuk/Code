@@ -6,11 +6,7 @@ const Validator = {
   },
   isvalidatePhone(number){
     const numberRegex = /^(\+38)?[\s\-]? ?([(]?(([-\s]?){3}\d){3}[)]?) ?(([\s-]?\d){7})$/
-    if(number.length>25){
-        return false;
-    }else{
-        return numberRegex.test(number);
-    }
+    return numberRegex.test(number);
   },
   isvalidatePassword(password){
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])([a-zA-Z0-9\_]{8,})$/
