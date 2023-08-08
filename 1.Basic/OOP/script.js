@@ -13,7 +13,9 @@ class AbstractProduct {
     this.images = ['1', '2', '3', '4', '5', '6', '7'];
   }
   getFullInformation() {
-    return this;
+    for (let key in this) {
+      console.log(`${key} - ${this[key]}`)
+    }
   }
   getImage = function (e) {
     if (!e) {
@@ -27,7 +29,11 @@ class AbstractProduct {
     this.reviews.push(e);
   };
   getReviewByID = function (id) {
-    return this.reviews[id - 1];
+    for(let i=0;i<this.reviews.length;i++){
+      if(this.reviews[i]===id){
+        return this.reviews[i];
+      }
+    }
   };
 
   getName = function () {
@@ -35,29 +41,25 @@ class AbstractProduct {
   };
 
   deleteReview = function (id) {
-    this.reviews.splice(id - 1, 1);
+    for(let i=0;i<this.reviews.length;i++){
+      if(this.reviews[i].id==id){
+        this.reviews.splice(i,1)
+      }
+    }
   };
 
   getAverageRating = function () {
-    let totalServiceRating = 0;
-    let totalPriceRating = 0;
-    let totalValueRating = 0;
-    let totalQualityRating = 0;
+    let totalRating = 0;
 
     this.reviews.forEach((review) => {
-      totalServiceRating += review.rating.service || 0;
-      totalPriceRating += review.rating.price || 0;
-      totalValueRating += review.rating.value || 0;
-      totalQualityRating += review.rating.quality || 0;
+      totalRating+= review.rating.service || 0;
+      totalRating += review.rating.price || 0;
+      totalRating += review.rating.value || 0;
+      totalRating += review.rating.quality || 0;
     });
 
     const totalReviews = this.reviews.length;
-    return {
-      service: totalServiceRating / totalReviews,
-      price: totalPriceRating / totalReviews,
-      value: totalValueRating / totalReviews,
-      quality: totalQualityRating / totalReviews,
-    };
+    return totalRating /totalReviews
   };
   getPriceForQuantity(n) {
     return n * this.price;
@@ -105,7 +107,7 @@ class Electronics extends AbstractProduct {
     return this.power;
   }
 }
-const Product1 = new Clothes(
+const Product1 = new AbstractProduct(
     'Iphone Xr',
     500,
     'Apple',
@@ -177,5 +179,3 @@ Product3.addReview({
     }
 });
 console.log(Product1.getFullInformation());
-console.log(Product2.getFullInformation());
-console.log(Product3.getFullInformation());
