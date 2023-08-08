@@ -22,22 +22,24 @@ function readHttpLikeInput(){
 }
 
 let contents = readHttpLikeInput();
-
 // вот эту функцию собственно надо написать
 function parseTcpStringAsHttpRequest(string) { 
-  return { 
-    method: "POST", 
-    uri : "/doc/test", 
-    "headers": {
-        "Host": "shpp.me",
-        "Accept": "image/gif, image/jpeg, */*",
-        "Accept-Language": "en-us",
-        "Accept-Encoding": "gzip, deflate",
-        "User-Agent": "Mozilla/4.0",
-        "Content-Length": "35"
-    }, 
-    body :"bookId=12345&author=Tan+Ah+Teck", 
-  }; 
+    const lines = string.split('\n');
+    const [method, uri, protocol] = lines[0].split(' ');
+    const headers = {};
+    let index = 1;
+    while (lines[index] !== '') {
+        const [key, value] = lines[index].split(': ');
+        headers[key] = value;
+        index++;
+    }
+    const requestBody = lines.slice(index + 1).join('');
+    return {
+        method: method,
+        uri: uri,
+        "headers": headers,
+        body: requestBody
+    }; 
 }
 
 http = parseTcpStringAsHttpRequest(contents); 
