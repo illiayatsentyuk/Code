@@ -34,15 +34,16 @@ function sortByPrice(a, b) {
 }
   
 const sortProducts = function(products, sortRule){
-    if(sortRule=="ID"||sortRule=="id"||sortRule=="Id"){
-        products.sort(sortByID);
-        return products;
-    }else if(sortRule=="Name"||sortRule=="NAME"|| sortRule=="name"){
-        products.sort(sortByName);
-        return products;
-    }else if(sortRule=="Price"||sortRule=="PRICE"|| sortRule=="price"){
-        products.sort(sortByPrice);
-        return products;
-    }
+  if(sortRule.toLowerCase() === "id"){
+    products.sort(sortByID);
+    return products;
+  }else if(sortRule.toLowerCase() === "name"){
+      products.sort(sortByName);
+      return products;
+  }else if(sortRule.toLowerCase() === "price"){
+      products.sort(sortByPrice);
+      return products;
+  }
+
 }
 console.log(sortProducts(products,'id'))
