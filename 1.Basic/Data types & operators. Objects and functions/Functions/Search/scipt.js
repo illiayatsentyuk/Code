@@ -1,24 +1,27 @@
 const products = [
-    { id: 1, name: "Яблоко"},
-    { id: 2, name: "Груша"},
-    { id: 3, name: "Банан"},
-    { id: 4, name: "Виноград"},
-    { id: 5, name:'Вишня'}
+    { id: 1, name: "Яблоко",description:"Вкусное яблоко"},
+    { id: 2, name: "Груша",description:"Вкусная груша"},
+    { id: 3, name: "Банан",description:"Вкусный банан"},
+    { id: 4, name: "Виноград",description:"Вкусный виноград"},
+    { id: 5, name:'Вишня',description:"Вкусная вишня"}
 ];
-console.log(products.length)
-function searchProducts(products, searchText) {
+function searchProducts(description,searchText) {
     let mas = [];
     const lowerSearchText = searchText.toLowerCase();
+    let o;
     for(let i=0;i<products.length;i++){
+        o = products[i];
         const ProductName = products[i].name.toLowerCase();
-        if(ProductName.includes(lowerSearchText)){
-            mas.push(ProductName);
+        const ProductDescription = products[i].description.toLocaleLowerCase()
+        if(ProductName.includes(lowerSearchText) || ProductDescription.includes(description)){
+            mas.push(o);
         }else{
             continue;
         }
     }
     return mas;
 }
-const searchText = "в";
-const foundProducts = searchProducts(products, searchText);
+const searchText = "гр";
+const description = "гр"
+const foundProducts = searchProducts(description, searchText);
 console.log(foundProducts);
