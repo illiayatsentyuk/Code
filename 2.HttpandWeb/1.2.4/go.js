@@ -39,6 +39,16 @@ Connection: Closed
 Content-Type: text/html; charset=utf-8
             
 <h1 style="color:green">FOUND</h1>`);
+    }else if(statusCode==500){
+        console.log(
+`HTTP/1.1 ${statusCode} ${statusMessage}
+Server: Apache/2.2.14 (Win32)
+Content-Length: 34
+Connection: Closed
+Content-Type: text/html; charset=utf-8
+                        
+<h1 style="color:green">ERROR</h1>`
+        )
     }
 }
 function processHttpRequest($method, $uri, $headers, $body) {
@@ -60,7 +70,7 @@ function processHttpRequest($method, $uri, $headers, $body) {
         }
     } catch (err) {
       
-        outputHttpResponse(500,"Internal Server Error",$headers,$body);
+        outputHttpResponse(500,`Internal Server Error`,$headers,$body);
       
     }
 }
